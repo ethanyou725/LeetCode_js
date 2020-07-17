@@ -1,0 +1,10 @@
+{
+  "name": "leetcode_js",
+  "version": "0.0.1",
+  "description": "leetcode",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.4.0"
+  }
+}
