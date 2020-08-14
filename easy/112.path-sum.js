@@ -3,8 +3,6 @@
  * 给定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。
  */
 
-import { TreeNode } from "../typed";
-
 /**
  * Definition for a binary tree node.
  * class TreeNode {
@@ -19,10 +17,20 @@ import { TreeNode } from "../typed";
  * }
  */
 
-function hasPathSum(root: TreeNode | null, sum: number): boolean {
-
-  function preOrder (root: TreeNode | null) {
-    console.log()
+function hasPathSum(root, sum) {
+  function preOrder(root, rest, queue, res) {
+    if (root === null) return false
+    rest -= root.val
+    queue.push(root.val)
+    if (rest === 0 && root.left === null && root.right === null) {
+      res.push(queue)
+    }
+    preOrder(root.left, rest, queue, res)
+    preOrder(root.right, rest, queue, res)
+    queue.pop()
   }
-  return false
+  let res = []
+
+  preOrder(root, sum, [], res)
+  return res.length > 0
 }
