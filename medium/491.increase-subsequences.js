@@ -7,28 +7,30 @@
 /**
  * @param {number[]} nums
  * @return {number[][]}
+ * 解法: dfs 寻找路径, 回溯的时候去掉出栈, 注意去重
  */
 var findSubsequences = function (nums) {
-  let set = new Set()
-  // todo
+  let map = new Map()
+  let res = []
 
   function dfs(start, path) {
-    if (start >= nums.length) return
-    for (let i = start; i < nums.length; i++) {
+    if (path.length > 1) {
+      const keys = path.join()
+      if (!map.has(keys)) {
+        res.push(path.slice())
+        map.set(keys, true)
+      }
+    }
+    for (let i = start, len = nums.length; i < len; i++) {
       const prev = path[path.length - 1]
       const cur = nums[i]
       if (path.length === 0 || cur >= prev) {
-        path.push(nums[i])
-        if (path.length >= 2) {
-          // todo
-          set.add(path.join(","))
-        }
+        path.push(cur)
         dfs(i + 1, path)
         path.pop()
       }
     }
   }
-
   dfs(0, [])
-  return Array.from(set).map((str) => str.split(",").map((val) => Number(val)))
+  return res
 }
