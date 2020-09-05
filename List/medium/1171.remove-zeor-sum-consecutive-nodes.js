@@ -10,7 +10,8 @@ var removeZeroSumSublists = function (head) {
   let dummyHead = new ListNode(0);
   dummyHead.next = head;
   let cur = dummyHead;
-  scanLoop: while (cur.next !== null) {
+  let nextLoop = false;
+  while ( cur.next !== null) {
     if (cur.next.val === 0) {
       cur.next = cur.next.next;
       continue;
@@ -21,10 +22,15 @@ var removeZeroSumSublists = function (head) {
       sum += scan.val;
       if (sum == 0) {
         cur.next = scan.next;
-        continue scanLoop;
+        nextLoop = true
+        break
       } else {
         scan = scan.next;
       }
+    }
+    if (nextLoop) {
+        nextLoop = false
+        continue
     }
     cur = cur.next;
   }
