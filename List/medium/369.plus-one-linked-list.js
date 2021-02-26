@@ -30,12 +30,7 @@ var plusOne = function (head) {
   return head;
 };
 
-const input = {
-  a: 1,
-  b: [1, 2, { c: true }, [3]],
-  d: { e: 2, f: 3 },
-  g: null
-};
+
 // 返回
 // {
 //     "a": 1,
@@ -48,11 +43,12 @@ const input = {
 //     "g": null,  值为null或者undefined，丢弃
 // };
 
-function isObject(val) {
-  return val !== null && typeof val === "object";
-}
+
 
 function flatten(input) {
+  function isObject(val) {
+    return val !== null && typeof val === "object";
+  }
   const ret = {};
 
   function handlePrimitive(val, suffix = "") {
@@ -93,8 +89,14 @@ function flatten(input) {
 
   return ret;
 }
-
+const input = {
+  a: 1,
+  b: [1, 2, { c: true }, [3]],
+  d: { e: 2, f: 3 },
+  g: null
+};
 var a = flatten({ a: [1, 2, [3, 4], { c: "w", j: "k", z: [1, 2] }], b: 3, d: 4 });
 // var a= flatten({c: "w", j: "k"})
-
+var b = flatten(input)
 console.log(a);
+console.log(b)
